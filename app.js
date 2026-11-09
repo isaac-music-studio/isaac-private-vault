@@ -29,7 +29,7 @@ async function ensureCloud(){
   await new Promise((resolve,reject)=>{
    const existing=document.querySelector('script[data-supabase-loader]');
    if(existing){existing.addEventListener('load',resolve,{once:true});existing.addEventListener('error',reject,{once:true});return;}
-   const s=document.createElement('script');s.dataset.supabaseLoader='1';s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';s.onload=resolve;s.onerror=()=>reject(new Error('Could not load the Supabase client library. Check the connection and try again.'));document.head.appendChild(s);
+   const s=document.createElement('script');s.dataset.supabaseLoader='1';s.src='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0';s.onload=resolve;s.onerror=()=>reject(new Error('Could not load the Supabase client library. Check the connection and try again.'));document.head.appendChild(s);
   });
  }
  cloud=makeCloud();
@@ -84,4 +84,6 @@ $('restorefile').onchange=async e=>{const f=e.target.files[0];if(!f)return;const
 $('signup').onclick=()=>cloudAuth('signup');$('signin').onclick=()=>cloudAuth('signin');$('setupcloud').onclick=()=>cloudAuth('signin',true);
 $('sync').onclick=()=>syncNow().catch(e=>setMsg('cloudmsg','Sync failed: '+e.message,'bad'));
 $('signout').onclick=async()=>{if(!cloud)return;await cloud.auth.signOut();cloudUser=null;refreshCloudState();setMsg('cloudmsg','Signed out. Your local encrypted vault remains on this device.','good')};
-(async()=>{if(!crypto.subtle||!window.indexedDB){show('login');setMsg('loginmsg','Use a modern browser over HTTPS to enable encrypted storage.','bad');return}if(readMeta())show('login');else show('setup');if(cloud){try{const {data}=await cloud.auth.getSession();if(data.session){await prepareCloudSession();refreshCloudState()}}catch(e){console.warn('Cloud session check failed',e)}}else refreshCloudState()})();
+(async()=>{if(!crypto.subtle||!window.indexedDB){show('setup');setMsg('setupmsg','This browser does not support the secure storage features required. Open the site in an up-to-date browser over HTTPS.','bad');return}if(readMeta())show('login');else show('setup');if(cloud){try{const {data}=await cloud.auth.getSession();if(data.session){await prepareCloudSession();refreshCloudState()}}catch(e){console.warn('Cloud session check failed',e);refreshCloudState()}}else refreshCloudState()})().catch(e=>{console.error('ISAAC PRIVATE VAULT startup error:',e);const setup=$('setup');if(setup)setup.classList.remove('hidden');const msg=$('setupmsg');if(msg){msg.textContent='The vault could not finish starting. Your local data has not been deleted. Reload the page or check the browser console; do not clear site data.';msg.className='muted status bad';}});
+window.addEventListener('error',e=>{console.error('ISAAC PRIVATE VAULT runtime error:',e.message);const setup=$('setup');if(setup)setup.classList.remove('hidden');const msg=$('setupmsg');if(msg&&!msg.textContent)msg.textContent='A page script failed. Do not clear browser storage; reload or report this error.';});
+window.addEventListener('unhandledrejection',e=>{console.error('ISAAC PRIVATE VAULT async error:',e.reason);});
