@@ -11,7 +11,7 @@
 <body>
 <header><div class="brand">ISAAC <span>PRIVATE VAULT</span></div><div style="color:#cbd5e1;font-size:12px">BLACK & GOLD • ENCRYPTED PERSONAL SPACE</div></header>
 <main>
-<section id="setup" class="card hidden">
+<section id="setup" class="card">
 <h1>Create your vault</h1><p class="muted">Create a strong master password. It encrypts your data in this browser. It is never sent to the cloud account provider.</p>
 <label for="newpass">Vault master password</label><input id="newpass" type="password" autocomplete="new-password" minlength="12">
 <label for="confirm">Confirm master password</label><input id="confirm" type="password" autocomplete="new-password">
@@ -34,9 +34,10 @@
 <div class="card"><h2>Encrypted backup & restore</h2><p class="muted">Backups contain encrypted records and encryption metadata, not your master password. Restore validates the password before replacing local data.</p><div class="row"><button id="backup">Download encrypted backup</button><button id="restorebtn" class="alt">Restore backup</button><input id="restorefile" type="file" accept=".ipvbackup,application/json" class="hidden"></div><p id="backupmsg" class="muted"></p></div>
 </section>
 <div class="card muted"><b>Security status:</b> This is a self-hostable beta starter, not an audited production password manager. HTTPS, Supabase Row Level Security, account protection and secure device practices are required. Never put a Supabase service-role key in this website.</div>
+<p id="bootnotice" class="status" role="status">ISAAC PRIVATE VAULT is loading. If this message remains and the buttons do not respond, refresh the page after a moment. Your saved local data is not affected.</p>
 </main><footer>ISAAC PRIVATE VAULT • V3 encrypted-sync starter</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
-<script src="config.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
+<script defer src="config.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="app.js" defer></script>
 </body></html>
