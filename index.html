@@ -34,10 +34,8 @@
 <div class="card"><h2>Encrypted backup & restore</h2><p class="muted">Backups contain encrypted records and encryption metadata, not your master password. Restore validates the password before replacing local data.</p><div class="row"><button id="backup">Download encrypted backup</button><button id="restorebtn" class="alt">Restore backup</button><input id="restorefile" type="file" accept=".ipvbackup,application/json" class="hidden"></div><p id="backupmsg" class="muted"></p></div>
 </section>
 <div class="card muted"><b>Security status:</b> This is a self-hostable beta starter, not an audited production password manager. HTTPS, Supabase Row Level Security, account protection and secure device practices are required. Never put a Supabase service-role key in this website.</div>
-<p id="bootnotice" class="status" role="status">ISAAC PRIVATE VAULT is loading. If this message remains and the buttons do not respond, refresh the page after a moment. Your saved local data is not affected.</p>
 </main><footer>ISAAC PRIVATE VAULT • V3 encrypted-sync starter</footer>
-<script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.119.0"></script>
 <script defer src="config.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="app.js" defer></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script defer src="app.js"></script>
 </body></html>
